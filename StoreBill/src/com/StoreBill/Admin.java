@@ -63,7 +63,7 @@ public class Admin {
 
 	}
 
-	private void loginOperations() {
+	public void loginOperations() {
 		Biller bl = new Biller();
 		StockKeeper sk = new StockKeeper();
 		sc = new Scanner(System.in);
