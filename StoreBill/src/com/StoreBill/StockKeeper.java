@@ -36,15 +36,19 @@ public class StockKeeper {
 		switch (choice) {
 		case 1:
 			db.showAllStock();
+			keeperOperations();
 			break;
 		case 2:
 			addNewStock();
+			keeperOperations();
 			break;
 		case 3:
 			db.updateStock();
+			keeperOperations();
 			break;
 		case 4:
 			db.removeStock();
+			keeperOperations();
 			break;
 		case 0:
 			ad.loginOperations();
@@ -59,7 +63,7 @@ public class StockKeeper {
 	private void addNewStock() {
 		sc = new Scanner(System.in);
 		dgs = new DetailGetSet();
-		//dgs.setRoll(1010);
+		// dgs.setRoll(1010);
 		System.out.println("Enter Product Name");
 		String name = sc.next();
 		dgs.setName(name);
@@ -82,6 +86,7 @@ public class StockKeeper {
 	}
 
 	public static void main(String[] args) {
-
+		StockKeeper sk = new StockKeeper();
+		sk.keeperOperations();
 	}
 }
