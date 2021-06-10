@@ -87,7 +87,8 @@ public class Admin {
 			loginOperations();
 			break;
 		default:
-			System.out.println("Enter a Valid Key");
+			System.out.println(
+					"\n----------------------------------Enter A Valid Key------------------------------\n");
 			loginOperations();
 		}
 	}
@@ -118,7 +119,8 @@ public class Admin {
 			loginOperations();
 			break;
 		default:
-			System.out.println("Enter a Valid Key");
+			System.out.println(
+					"\n----------------------------------Enter A Valid Key------------------------------\n");
 			adminOperations();
 		}
 	}
@@ -137,7 +139,8 @@ public class Admin {
 			loginOperations();
 			break;
 		default:
-			System.out.println("Enter a Valid Key");
+			System.out.println(
+					"\n----------------------------------Enter A Valid Key------------------------------\n");
 			removeUser();
 		}
 	}
@@ -168,7 +171,8 @@ public class Admin {
 			loginOperations();
 			break;
 		default:
-			System.out.println("Enter a Valid Key");
+			System.out.println(
+					"\n----------------------------------Enter A Valid Key------------------------------\n");
 			adminOperations();
 		}
 	}
