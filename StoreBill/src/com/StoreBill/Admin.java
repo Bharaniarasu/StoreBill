@@ -19,6 +19,11 @@ public class Admin {
 	private String passwordGet;
 
 	Admin() {
+		System.out
+				.println("\n\n***************************************************************************************");
+		System.out.println("                                  ALL IN ALL STORES");
+		System.out
+				.println("***************************************************************************************\n\n");
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -33,7 +38,6 @@ public class Admin {
 	private void getUserDetail(String user) {
 		String userName = user;
 		String query = "select * from user where roll = '" + userName + "';";
-		System.out.println(query);
 		try {
 			rs = st.executeQuery(query);
 			while (rs.next()) {
@@ -43,7 +47,6 @@ public class Admin {
 		} catch (SQLException e) {
 			System.out.println("SQL Exception in Get User Detail");
 		}
-
 	}
 
 	private void adminLogin() {
@@ -60,7 +63,6 @@ public class Admin {
 			System.out.println("Invalid User Name or Password");
 			adminLogin();
 		}
-
 	}
 
 	public void loginOperations() {
@@ -92,7 +94,10 @@ public class Admin {
 
 	private void adminOperations() {
 		sc = new Scanner(System.in);
-		System.out.println("Select 1 : To View all User");
+		System.out.println("----------------------------------------------------------------------------------------");
+		System.out.println("                               WELCOME TO ADMIN PORTAL");
+		System.out.println("----------------------------------------------------------------------------------------");
+		System.out.println("\n\nSelect 1 : To View all User");
 		System.out.println("Select 2 : To Add an User");
 		System.out.println("Select 3 : To Remove an User");
 		int choice = sc.nextInt();
@@ -140,14 +145,13 @@ public class Admin {
 	private void removeUserName(String rollName) {
 		String roll = rollName;
 		String query = "update user set name = " + null + ",password = " + null + " where roll = '" + roll + "';";
-		System.out.println(query);
 		try {
 			st.execute(query);
-			System.out.println("User Removed Successfully");
+			System.out.println(
+					"\n--------------------------------User Removed Successfully----------------------------\n");
 		} catch (SQLException e) {
 			System.out.println("SQL Exception in Remove UserName");
 		}
-
 	}
 
 	private void addUser() {
@@ -175,14 +179,12 @@ public class Admin {
 		System.out.println("Enter New User Name");
 		String newUser = sc.next();
 		String query = "update user set name = '" + newUser + "' where roll = '" + roll + "';";
-		System.out.println(query);
 		try {
 			st.execute(query);
 		} catch (SQLException e) {
 			System.out.println("SQL Exception in Add User Name");
 		}
 		addUserPassword(roll);
-
 	}
 
 	private void addUserPassword(String roll) {
@@ -191,14 +193,13 @@ public class Admin {
 		System.out.println("Enter New User Password");
 		String newPassword = sc.next();
 		String query = "update user set password = '" + newPassword + "' where roll = '" + rollName + "';";
-		System.out.println(query);
 		try {
 			st.execute(query);
-			System.out.println("User Added Successfully");
+			System.out
+					.println("\n--------------------------------User Added Successfully----------------------------\n");
 		} catch (SQLException e) {
 			System.out.println("SQL Exception in Add User Password");
 		}
-
 	}
 
 	private void viewUsers() {
@@ -213,6 +214,7 @@ public class Admin {
 				System.out.print(rs.getString(2) + "              ");
 				System.out.println(rs.getString(3) + "\n------------------------------------------------------");
 			}
+			System.out.println("\n");
 		} catch (SQLException e) {
 			System.out.println("SQL Exception in View User");
 		}
@@ -220,8 +222,7 @@ public class Admin {
 
 	public static void main(String[] args) {
 		Admin ad = new Admin();
-		// ad.adminLogin();
-		ad.loginOperations();
+		ad.adminLogin();
 
 	}
 

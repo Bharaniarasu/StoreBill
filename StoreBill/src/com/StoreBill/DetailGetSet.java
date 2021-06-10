@@ -64,5 +64,4 @@ public class DetailGetSet {
 	public void setSellingPrice(double sellingPrice) {
 		this.sellingPrice = sellingPrice;
 	}
-
 }

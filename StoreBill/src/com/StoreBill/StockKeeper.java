@@ -39,7 +39,7 @@ public class StockKeeper {
 			keeperOperations();
 			break;
 		case 2:
-			addNewStock();
+			db.addNewStock();
 			keeperOperations();
 			break;
 		case 3:
@@ -57,36 +57,5 @@ public class StockKeeper {
 			System.out.println("Enter a valid Key");
 			keeperOperations();
 		}
-
-	}
-
-	private void addNewStock() {
-		sc = new Scanner(System.in);
-		dgs = new DetailGetSet();
-		// dgs.setRoll(1010);
-		System.out.println("Enter Product Name");
-		String name = sc.next();
-		dgs.setName(name);
-		System.out.println("Enter Product Quantity");
-		double qty = sc.nextDouble();
-		dgs.setQty(qty);
-		System.out.println("Enter Buying Date\n                EX : DD//MM//YYYY");
-		String buyingDate = sc.next();
-		dgs.setBuyingDate(buyingDate);
-		System.out.println("Enter Expiry Date\n                EX : DD//MM//YYYY");
-		String expiryDate = sc.next();
-		dgs.setSellingDate(expiryDate);
-		System.out.println("Enter Buying Price");
-		double buyingPrice = sc.nextDouble();
-		dgs.setBuyingPrice(buyingPrice);
-		System.out.println("Enter Selling Price");
-		double sellingPrice = sc.nextDouble();
-		dgs.setSellingPrice(sellingPrice);
-		db.addNewStock();
-	}
-
-	public static void main(String[] args) {
-		StockKeeper sk = new StockKeeper();
-		sk.keeperOperations();
 	}
 }

@@ -36,27 +36,56 @@ public class DatabaseStore {
 
 	public void showAllStock() {
 		String query = "select * from data ;";
+		int j = 1;
+		System.out.println(
+				"\n========================================================================================================================================================");
+		System.out.println("R.No    CODE.NO            "
+				+ "  NAME                 QTY                  BUYING DATE               SELLING DATE          BUYING PRICE       SELLING PRICE");
+		System.out.println(
+				"=======================================================================================================================================================");
 		try {
 			rs = st.executeQuery(query);
 			while (rs.next()) {
+				System.out.print(j + ".       ");
 				for (int i = 1; i <= 7; i++) {
-					System.out.print(rs.getString(i) + "         ");
+					System.out.print(rs.getString(i) + "                ");
 				}
-				System.out.println("\n");
+				System.out.println(
+						"\n-----------------------------------------------------------------------------------------------------------------------------------------------------");
+				j++;
 			}
-
 		} catch (SQLException e) {
 			System.out.println("SQL Exception in Show All");
 		}
 	}
 
 	public void addNewStock() {
+		sc = new Scanner(System.in);
 		dgs = new DetailGetSet();
+		System.out.println("Enter Product Name");
+		String name = sc.next();
+		dgs.setName(name);
+		System.out.println("Enter Product Quantity");
+		double qty = sc.nextDouble();
+		dgs.setQty(qty);
+		System.out.println("Enter Buying Date\n EX : DD/MM/YYYY");
+		String buyingDate = sc.next();
+		dgs.setBuyingDate(buyingDate);
+		System.out.println("Enter Expiry Date\n EX : DD/MM/YYYY");
+		String expiryDate = sc.next();
+		dgs.setSellingDate(expiryDate);
+		System.out.println("Enter Buying Price");
+		double buyingPrice = sc.nextDouble();
+		dgs.setBuyingPrice(buyingPrice);
+		System.out.println("Enter Selling Price");
+		double sellingPrice = sc.nextDouble();
+		dgs.setSellingPrice(sellingPrice);
 		String query = "insert into data values(0,'" + dgs.getName() + "'," + dgs.getQty() + ",'" + dgs.getBuyingDate()
 				+ "','" + dgs.getSellingDate() + "'," + dgs.getBuyingPrice() + "," + dgs.getSellingPrice() + ");";
-		System.out.println(query);
 		try {
 			st.execute(query);
+			System.out.println(
+					"\n--------------------------------Stock Added Successfully----------------------------\n");
 		} catch (SQLException e) {
 			System.out.println("SQL Exception in Add New Stock");
 		}
@@ -110,12 +139,13 @@ public class DatabaseStore {
 			ad.loginOperations();
 			break;
 		default:
-			System.out.println("Enter a valid Key");
+			System.out.println("\n----------------------------------Enter A Valid Key------------------------------\n");
 			updateStock();
 		}
 		try {
-			System.out.println(query);
 			st.executeUpdate(query);
+			System.out.println(
+					"\n--------------------------------Stock Updated Successfully----------------------------\n");
 		} catch (SQLException e) {
 			System.out.println("SQL Exception in Remove Stock");
 		}
@@ -126,39 +156,34 @@ public class DatabaseStore {
 		System.out.println("Enter Product Number To Remove Stock Data");
 		int roll = sc.nextInt();
 		String query = "delete from data where rNo =" + roll + ";";
-		System.out.println(query);
 		try {
 			st.executeUpdate(query);
+			System.out.println(
+					"\n--------------------------------Stock Removed Successfully----------------------------\n");
 		} catch (SQLException e) {
 			System.out.println("SQL Exception in Remove Stock");
 		}
 	}
 
 	private void getDetails(int billNum, int code, double quantity, String mobile) {
-		// System.out.println(code + " " + quantity);
 		String name = "";
 		double totalQty = 0;
 		double sPrice = 0;
 		double total = 0;
 		String query = "select * from data where rNo =" + code + ";";
-		// System.out.println(query);
 		try {
 			rs = st.executeQuery(query);
 			while (rs.next()) {
 				name = rs.getString(2);
 				totalQty = rs.getDouble(3);
-				// String bDate=rs.getString(4);
-				// String eDate=rs.getString(5);
 				sPrice = rs.getDouble(7);
 				total = quantity * sPrice;
 				grandTotal += total;
-				// System.out.println(name + " " + totalQty + " " + sPrice + " " + total);
 			}
 			printBill(billNum, code, name, totalQty, quantity, sPrice, total, grandTotal, mobile);
 		} catch (SQLException e) {
 			System.out.println("SQL Exception in Get Details");
 		}
-
 	}
 
 	private void printBill(int billNum, int code, String name, double totalQty, double quantity, double sPrice,
@@ -176,7 +201,6 @@ public class DatabaseStore {
 	private void createNewBillTable(int billNum) {
 		String query = "create table C" + billNum
 				+ "(rNo int,code int,name varchar(45),qty double,price double,total double,mobile varchar(15)); ";
-		System.out.println(query);
 		try {
 			st.execute(query);
 		} catch (SQLException e) {
@@ -188,7 +212,6 @@ public class DatabaseStore {
 			double total, String mobile) {
 		String query = "insert into C" + billNum + " values(" + rNum + "," + code + ",'" + name + "'," + quantity + ","
 				+ sPrice + "," + total + "," + mobile + ");";
-		System.out.println(query);
 		try {
 			st.execute(query);
 			rNum++;
@@ -199,7 +222,6 @@ public class DatabaseStore {
 
 	private void qtyMaintanance(int code, double balQty) {
 		String query = "update data set qty =" + balQty + " where rNo=" + code + ";";
-		// System.out.println(query);
 		try {
 			st.execute(query);
 		} catch (SQLException e) {
@@ -209,10 +231,10 @@ public class DatabaseStore {
 
 	public void createBill() {
 		sc = new Scanner(System.in);
-		ArrayList list = new ArrayList();
+		ArrayList<Number> list = new ArrayList<Number>();
 		int code = 0;
 		double quantity = 0;
-		System.out.println("Enter Bill Number");
+		System.out.println("\n\nEnter Bill Number");
 		int billNum = sc.nextInt();
 		createNewBillTable(billNum);
 		System.out.println("Enter Customer Mobile Number");
@@ -227,25 +249,23 @@ public class DatabaseStore {
 			quantity = sc.nextDouble();
 			list.add(quantity);
 		}
-		// System.out.println(list);
+		ad = new Admin();
 		System.out.println(
 				"\n Bill.No : " + billNum + "                                                Mobile : " + mobile);
 		System.out.println("\n====================================================================================");
 		System.out.println(" R.no            NAME                QTY               PRICE/1               TOTAL");
 		System.out.println("====================================================================================");
-
 		for (int j = 0; j < list.size(); j += 2) {
 			int code1 = (int) list.get(j);
 			double quantity1 = (double) list.get(j + 1);
 			getDetails(billNum, code1, quantity1, mobile);
 		}
-		System.out.println(" ====> " + grandTotal);
-
+		System.out.println("                                                                  Total ==> " + grandTotal);
 	}
 
 	public void viewAllOldBill() {
 		String query = "show tables;";
-		System.out.println(" ================");
+		System.out.println("\n\n ================");
 		System.out.println("|  Bill Numbers  |");
 		System.out.println(" ================");
 		try {
@@ -254,11 +274,9 @@ public class DatabaseStore {
 				System.out.println("|     " + rs.getString(1) + "      |");
 				System.out.println(" ----------------");
 			}
-
 		} catch (SQLException e) {
 			System.out.println("SQL Exception in View All Old Bill");
 		}
-
 	}
 
 	public void viewOldBill() {
@@ -267,9 +285,9 @@ public class DatabaseStore {
 		System.out.println("Enter Bill Number To View Old Bill");
 		int billNum = sc.nextInt();
 		String mobile = getMobile(billNum);
+		ad = new Admin();
 		System.out.println(
 				"\n Bill.No : " + billNum + "                                                Mobile : " + mobile);
-
 		System.out.println("\n====================================================================================");
 		System.out.println("R.no        CODE.NO          NAME            QTY           PRICE/1          TOTAL");
 		System.out.println("====================================================================================");
@@ -279,7 +297,6 @@ public class DatabaseStore {
 			while (rs.next()) {
 				for (int i = 1; i <= 6; i++) {
 					System.out.print(rs.getString(i) + "            ");
-
 				}
 				System.out.println(
 						"\n------------------------------------------------------------------------------------");
@@ -289,7 +306,6 @@ public class DatabaseStore {
 		} catch (SQLException e) {
 			System.out.println("SQL Exception in Show All");
 		}
-
 	}
 
 	private String getMobile(int billNum) {
@@ -313,22 +329,11 @@ public class DatabaseStore {
 		String query = "drop table C" + bNum + ";";
 		try {
 			st.execute(query);
-			System.out.println("Bill Removed Successfully");
+			System.out.println(
+					"\n--------------------------------Bill Removed Successfully----------------------------\n");
 		} catch (SQLException e) {
 			System.out.println("SQL Exception in QTY Maintanance");
 		}
 
-	}
-
-	public static void main(String[] args) {
-		DatabaseStore db = new DatabaseStore();
-		// db.showAllStock();
-		// db.addNewStock();
-		// db.removeStock();
-		// db.updateStock();
-		// db.createBill();
-		// db.getDetails(0, 0);
-		// db.viewOldBill();
-		db.deleteOldBill();
 	}
 }

@@ -36,24 +36,26 @@ public class Biller {
 		switch (choice) {
 		case 1:
 			db.createBill();
+			billerOperations();
 			break;
 		case 2:
 			db.viewAllOldBill();
+			billerOperations();
 			break;
 		case 3:
 			db.viewOldBill();
+			billerOperations();
 			break;
 		case 4:
 			db.deleteOldBill();
+			billerOperations();
 			break;
 		case 0:
 			ad.loginOperations();
 			break;
 		default:
+			System.out.println("\n----------------------------------Enter A Valid Key------------------------------\n");
+			billerOperations();
 		}
-	}
-
-	public static void main(String[] args) {
-
 	}
 }
