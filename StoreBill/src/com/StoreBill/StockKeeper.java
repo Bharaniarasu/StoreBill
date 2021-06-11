@@ -15,18 +15,22 @@ public class StockKeeper {
 			ad.storeName();
 			String userGet = user;
 			String passwordGet = password;
-			System.out.println("User     : " + userGet);
-			System.out.println("Password : " + passwordGet);
-			System.out.println("Enter Keeper User Name");
-			String userName = sc.next();
-			System.out.println("Enter Keeper Password");
-			String passWord = sc.next();
-			if (userName.equals(userGet) && passWord.equals(passwordGet)) {
-				keeperOperations();
+			if (userGet == null && passwordGet == null) {
+				System.out.println(" is null");
 			} else {
-				System.out.println(
-						"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Invalid User Name or Password >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-				keeperLogin(userGet, passwordGet);
+				System.out.println("User     : " + userGet);
+				System.out.println("Password : " + passwordGet);
+				System.out.println("Enter Keeper User Name");
+				String userName = sc.next();
+				System.out.println("Enter Keeper Password");
+				String passWord = sc.next();
+				if (userName.equals(userGet) && passWord.equals(passwordGet)) {
+					keeperOperations();
+				} else {
+					System.out.println(
+							"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Invalid User Name or Password >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+					keeperLogin(userGet, passwordGet);
+				}
 			}
 		} catch (NullPointerException npe) {
 			System.out.println(
