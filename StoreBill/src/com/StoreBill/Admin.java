@@ -161,7 +161,8 @@ public class Admin {
 		}
 	}
 
-	private void addUser() {
+	public void addUser() {
+		sc = new Scanner(System.in);
 		System.out.println("\n\nselect 1 : To Add user in Biller\nselect 2 : To Add user in Keeper\n");
 		int choice1 = sc.nextInt();
 		switch (choice1) {

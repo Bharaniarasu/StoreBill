@@ -14,7 +14,8 @@ public class Biller {
 		String userGet = user;
 		String passwordGet = password;
 		if (userGet == null && passwordGet == null) {
-			System.out.println(" is null");
+			System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Please Add an User >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			ad.addUser();
 		} else {
 			System.out.println("User     : " + userGet);
 			System.out.println("Password : " + passwordGet);
