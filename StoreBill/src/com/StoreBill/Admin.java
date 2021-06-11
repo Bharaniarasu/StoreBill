@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Admin {
@@ -19,11 +20,6 @@ public class Admin {
 	private String passwordGet;
 
 	Admin() {
-		System.out
-				.println("\n\n***************************************************************************************");
-		System.out.println("                                  ALL IN ALL STORES");
-		System.out
-				.println("***************************************************************************************\n\n");
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -33,6 +29,15 @@ public class Admin {
 		} catch (ClassNotFoundException e) {
 			System.out.println("Class not Found in Admin");
 		}
+	}
+
+	public void storeName() {
+		System.out.println(
+				"\n\n**************************************************************************************************");
+		System.out.println("                                       ALL IN ALL STORES");
+		System.out.println(
+				"**************************************************************************************************\n\n");
+
 	}
 
 	private void getUserDetail(String user) {
@@ -53,6 +58,8 @@ public class Admin {
 		sc = new Scanner(System.in);
 		String roll = "admin";
 		getUserDetail(roll);
+		System.out.println("User     : " + userGet);
+		System.out.println("Password : " + passwordGet);
 		System.out.println("Enter Admin User Name");
 		String userName = sc.next();
 		System.out.println("Enter Admin Password");
@@ -69,7 +76,7 @@ public class Admin {
 		Biller bl = new Biller();
 		StockKeeper sk = new StockKeeper();
 		sc = new Scanner(System.in);
-		System.out.println("Select 1 : To Admin \nSelect 2 : To Biller \nSelect 3 : To Stock_Keeper");
+		System.out.println("\n\nSelect 1 : To Admin \nSelect 2 : To Biller \nSelect 3 : To Stock_Keeper\n");
 		int choice = sc.nextInt();
 		switch (choice) {
 		case 1:
@@ -87,8 +94,7 @@ public class Admin {
 			loginOperations();
 			break;
 		default:
-			System.out.println(
-					"\n----------------------------------Enter A Valid Key------------------------------\n");
+			System.out.println("\n----------------------------------Enter A Valid Key------------------------------\n");
 			loginOperations();
 		}
 	}
@@ -100,7 +106,7 @@ public class Admin {
 		System.out.println("----------------------------------------------------------------------------------------");
 		System.out.println("\n\nSelect 1 : To View all User");
 		System.out.println("Select 2 : To Add an User");
-		System.out.println("Select 3 : To Remove an User");
+		System.out.println("Select 3 : To Remove an User\n");
 		int choice = sc.nextInt();
 		switch (choice) {
 		case 1:
@@ -119,14 +125,13 @@ public class Admin {
 			loginOperations();
 			break;
 		default:
-			System.out.println(
-					"\n----------------------------------Enter A Valid Key------------------------------\n");
+			System.out.println("\n----------------------------------Enter A Valid Key------------------------------\n");
 			adminOperations();
 		}
 	}
 
 	private void removeUser() {
-		System.out.println("select 1 : To Remove User in Biller\nselect 2 : To Remove User in Keeper");
+		System.out.println("\n\nselect 1 : To Remove User in Biller\nselect 2 : To Remove User in Keeper\n");
 		int choice2 = sc.nextInt();
 		switch (choice2) {
 		case 1:
@@ -139,8 +144,7 @@ public class Admin {
 			loginOperations();
 			break;
 		default:
-			System.out.println(
-					"\n----------------------------------Enter A Valid Key------------------------------\n");
+			System.out.println("\n----------------------------------Enter A Valid Key------------------------------\n");
 			removeUser();
 		}
 	}
@@ -158,7 +162,7 @@ public class Admin {
 	}
 
 	private void addUser() {
-		System.out.println("select 1 : To Add user in Biller\nselect 2 : To Add user in Keeper");
+		System.out.println("\n\nselect 1 : To Add user in Biller\nselect 2 : To Add user in Keeper\n");
 		int choice1 = sc.nextInt();
 		switch (choice1) {
 		case 1:
@@ -171,8 +175,7 @@ public class Admin {
 			loginOperations();
 			break;
 		default:
-			System.out.println(
-					"\n----------------------------------Enter A Valid Key------------------------------\n");
+			System.out.println("\n----------------------------------Enter A Valid Key------------------------------\n");
 			adminOperations();
 		}
 	}
@@ -187,6 +190,10 @@ public class Admin {
 			st.execute(query);
 		} catch (SQLException e) {
 			System.out.println("SQL Exception in Add User Name");
+		} catch (InputMismatchException ime) {
+			System.out
+					.println("\n----------------------------------Enter A Valid Input------------------------------\n");
+			addUserName(roll);
 		}
 		addUserPassword(roll);
 	}
@@ -203,6 +210,10 @@ public class Admin {
 					.println("\n--------------------------------User Added Successfully----------------------------\n");
 		} catch (SQLException e) {
 			System.out.println("SQL Exception in Add User Password");
+		} catch (InputMismatchException ime) {
+			System.out
+					.println("\n----------------------------------Enter A Valid Input------------------------------\n");
+			addUserPassword(roll);
 		}
 	}
 
@@ -226,6 +237,7 @@ public class Admin {
 
 	public static void main(String[] args) {
 		Admin ad = new Admin();
+		ad.storeName();
 		ad.adminLogin();
 
 	}

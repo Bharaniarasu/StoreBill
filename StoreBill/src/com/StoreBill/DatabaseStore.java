@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class DatabaseStore {
@@ -35,6 +36,8 @@ public class DatabaseStore {
 	}
 
 	public void showAllStock() {
+		ad = new Admin();
+		ad.storeName();
 		String query = "select * from data ;";
 		int j = 1;
 		System.out.println(
@@ -42,7 +45,7 @@ public class DatabaseStore {
 		System.out.println("R.No    CODE.NO            "
 				+ "  NAME                 QTY                  BUYING DATE               SELLING DATE          BUYING PRICE       SELLING PRICE");
 		System.out.println(
-				"=======================================================================================================================================================");
+				"========================================================================================================================================================");
 		try {
 			rs = st.executeQuery(query);
 			while (rs.next()) {
@@ -51,7 +54,7 @@ public class DatabaseStore {
 					System.out.print(rs.getString(i) + "                ");
 				}
 				System.out.println(
-						"\n-----------------------------------------------------------------------------------------------------------------------------------------------------");
+						"\n--------------------------------------------------------------------------------------------------------------------------------------------------------");
 				j++;
 			}
 		} catch (SQLException e) {
@@ -88,6 +91,10 @@ public class DatabaseStore {
 					"\n--------------------------------Stock Added Successfully----------------------------\n");
 		} catch (SQLException e) {
 			System.out.println("SQL Exception in Add New Stock");
+		} catch (InputMismatchException ime) {
+			System.out
+					.println("\n----------------------------------Enter A Valid Input------------------------------\n");
+			addNewStock();
 		}
 	}
 
@@ -97,12 +104,12 @@ public class DatabaseStore {
 		String query = "";
 		System.out.println("Enter Product code to Update a Data");
 		int roll = sc.nextInt();
-		System.out.println("Select 1 : To Update Product Name");
+		System.out.println("\n\nSelect 1 : To Update Product Name");
 		System.out.println("Select 2 : To Update Product Quantity");
 		System.out.println("Select 3 : To Update Product Buying_Date");
 		System.out.println("Select 4 : To Update Product Expiry_Date");
 		System.out.println("Select 5 : To Update Product Buying_Price");
-		System.out.println("Select 6 : To Update Product Selling_Price");
+		System.out.println("Select 6 : To Update Product Selling_Price\n");
 		int choice = sc.nextInt();
 		switch (choice) {
 		case 1:
@@ -148,6 +155,10 @@ public class DatabaseStore {
 					"\n--------------------------------Stock Updated Successfully----------------------------\n");
 		} catch (SQLException e) {
 			System.out.println("SQL Exception in Remove Stock");
+		} catch (InputMismatchException ime) {
+			System.out
+					.println("\n----------------------------------Enter A Valid Input------------------------------\n");
+			updateStock();
 		}
 	}
 
@@ -162,6 +173,10 @@ public class DatabaseStore {
 					"\n--------------------------------Stock Removed Successfully----------------------------\n");
 		} catch (SQLException e) {
 			System.out.println("SQL Exception in Remove Stock");
+		} catch (InputMismatchException ime) {
+			System.out
+					.println("\n----------------------------------Enter A Valid Input------------------------------\n");
+			removeStock();
 		}
 	}
 
@@ -231,6 +246,7 @@ public class DatabaseStore {
 
 	public void createBill() {
 		sc = new Scanner(System.in);
+		ad = new Admin();
 		ArrayList<Number> list = new ArrayList<Number>();
 		int code = 0;
 		double quantity = 0;
@@ -249,7 +265,7 @@ public class DatabaseStore {
 			quantity = sc.nextDouble();
 			list.add(quantity);
 		}
-		ad = new Admin();
+		ad.storeName();
 		System.out.println(
 				"\n Bill.No : " + billNum + "                                                Mobile : " + mobile);
 		System.out.println("\n====================================================================================");
@@ -264,6 +280,8 @@ public class DatabaseStore {
 	}
 
 	public void viewAllOldBill() {
+		ad = new Admin();
+		ad.storeName();
 		String query = "show tables;";
 		System.out.println("\n\n ================");
 		System.out.println("|  Bill Numbers  |");
@@ -281,11 +299,12 @@ public class DatabaseStore {
 
 	public void viewOldBill() {
 		sc = new Scanner(System.in);
+		ad = new Admin();
 		double total = 0;
 		System.out.println("Enter Bill Number To View Old Bill");
 		int billNum = sc.nextInt();
 		String mobile = getMobile(billNum);
-		ad = new Admin();
+		ad.storeName();
 		System.out.println(
 				"\n Bill.No : " + billNum + "                                                Mobile : " + mobile);
 		System.out.println("\n====================================================================================");
@@ -305,6 +324,10 @@ public class DatabaseStore {
 			System.out.println("                                                                   TOTAL ==> " + total);
 		} catch (SQLException e) {
 			System.out.println("SQL Exception in Show All");
+		} catch (InputMismatchException ime) {
+			System.out
+					.println("\n----------------------------------Enter A Valid Input------------------------------\n");
+			viewOldBill();
 		}
 	}
 
@@ -333,6 +356,10 @@ public class DatabaseStore {
 					"\n--------------------------------Bill Removed Successfully----------------------------\n");
 		} catch (SQLException e) {
 			System.out.println("SQL Exception in QTY Maintanance");
+		} catch (InputMismatchException ime) {
+			System.out
+					.println("\n----------------------------------Enter A Valid Input------------------------------\n");
+			deleteOldBill();
 		}
 
 	}

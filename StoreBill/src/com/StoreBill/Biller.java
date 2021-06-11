@@ -8,18 +8,27 @@ public class Biller {
 	Admin ad;
 
 	public void billerLogin(String user, String password) {
+		ad = new Admin();
+		ad.storeName();
 		sc = new Scanner(System.in);
 		String userGet = user;
 		String passwordGet = password;
-		System.out.println("Enter Biller User Name");
-		String userName = sc.next();
-		System.out.println("Enter Biller Password");
-		String passWord = sc.next();
-		if (userName.equals(userGet) && passWord.equals(passwordGet)) {
-			billerOperations();
+		if (userGet == null && passwordGet == null) {
+			System.out.println(" is null");
 		} else {
-			System.out.println("Invalid User Name or Password");
-			billerLogin(userGet, passwordGet);
+			System.out.println("User     : " + userGet);
+			System.out.println("Password : " + passwordGet);
+			System.out.println("Enter Biller User Name");
+			String userName = sc.next();
+			System.out.println("Enter Biller Password");
+			String passWord = sc.next();
+			if (userName.equals(userGet) && passWord.equals(passwordGet)) {
+				billerOperations();
+			} else {
+				System.out.println(
+						"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Invalid User Name or Password >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				billerLogin(userGet, passwordGet);
+			}
 		}
 
 	}
@@ -28,10 +37,10 @@ public class Biller {
 		sc = new Scanner(System.in);
 		db = new DatabaseStore();
 		ad = new Admin();
-		System.out.println("Select 1 : Create Bill");
+		System.out.println("\n\nSelect 1 : Create Bill");
 		System.out.println("Select 2 : View All Bill Numbers");
 		System.out.println("Select 3 : View an Old Bill");
-		System.out.println("Select 4 : Delete an Old Bill");
+		System.out.println("Select 4 : Delete an Old Bill\n");
 		int choice = sc.nextInt();
 		switch (choice) {
 		case 1:
